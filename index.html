@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b16">
+  <meta name="description" content="Discover new adventures, explore digital worlds, and choose your next quest with PixelZone.">
+  <title>PixelZone — Enter Another World</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0b16;
+      --panel: #121222;
+      --muted: #aaa9c2;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --cyan: #67e8f9;
+      --line: rgba(255, 255, 255, .1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      min-width: 320px;
+      background: var(--bg);
+      color: #f8f7ff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 8%;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(196, 181, 253, .4);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(167, 139, 250, .3), rgba(244, 114, 182, .12));
+      box-shadow: 0 0 24px rgba(167, 139, 250, .15);
+      font-size: 18px;
+    }
+
+    .brand-name span {
+      color: var(--purple);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: #ceccdf;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: #fff;
+    }
+
+    .nav-cta {
+      padding: 10px 17px;
+      border: 1px solid rgba(196, 181, 253, .35);
+      border-radius: 10px;
+      color: #e8ddff;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 710px;
+      overflow: hidden;
+      align-items: center;
+      padding: 125px 8% 76px;
+      background:
+        radial-gradient(ellipse at 72% 43%, rgba(117, 73, 207, .2), transparent 37%),
+        radial-gradient(ellipse at 16% 12%, rgba(31, 79, 140, .16), transparent 38%),
+        linear-gradient(180deg, #101020 0%, var(--bg) 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero::before {
+      inset: 0;
+      opacity: .25;
+      background-image: radial-gradient(rgba(255, 255, 255, .72) .7px, transparent .7px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(90deg, transparent, #000 65%);
+    }
+
+    .hero::after {
+      right: -9%;
+      bottom: -49%;
+      width: 66%;
+      height: 82%;
+      border: 1px solid rgba(167, 139, 250, .13);
+      border-radius: 50%;
+      box-shadow: 0 0 0 36px rgba(167, 139, 250, .025), 0 0 0 72px rgba(167, 139, 250, .02);
+      transform: rotate(-12deg);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      color: #d4c6ff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.1px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan);
+      content: "";
+    }
+
+    h1 {
+      max-width: 680px;
+      font-size: clamp(52px, 7.1vw, 88px);
+      font-weight: 800;
+      letter-spacing: -.075em;
+      line-height: .99;
+    }
+
+    h1 span {
+      color: var(--purple);
+      text-shadow: 0 0 36px rgba(167, 139, 250, .28);
+    }
+
+    .hero-copy {
+      max-width: 500px;
+      margin-top: 24px;
+      color: #b7b6cb;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 21px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    .button-primary {
+      background: linear-gradient(110deg, #8b5cf6, #a855f7);
+      box-shadow: 0 8px 28px rgba(139, 92, 246, .25);
+      color: #fff;
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 12px 34px rgba(139, 92, 246, .4);
+    }
+
+    .button-secondary {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .035);
+      color: #e8e7f2;
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(196, 181, 253, .48);
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .hero-art {
+      position: absolute;
+      top: 50%;
+      right: 6%;
+      width: min(43vw, 550px);
+      aspect-ratio: 1;
+      transform: translateY(-45%);
+      animation: drift 7s ease-in-out infinite;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 9%;
+      border: 1px solid rgba(196, 181, 253, .16);
+      border-radius: 50%;
+      transform: rotate(-25deg) scaleY(.55);
+    }
+
+    .orbit-two {
+      inset: 0;
+      border-color: rgba(103, 232, 249, .12);
+      transform: rotate(48deg) scaleY(.72);
+    }
+
+    .planet {
+      position: absolute;
+      top: 19%;
+      left: 18%;
+      width: 63%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255,255,255,.75) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 39%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 46% 64%, rgba(255,255,255,.65) 0 1px, transparent 2px),
+        radial-gradient(ellipse at 31% 23%, #ffbdc9 0%, #ec71bb 17%, #975cf1 47%, #28245f 76%);
+      box-shadow: inset -34px -35px 60px rgba(7, 9, 35, .72), 0 0 85px rgba(176, 102, 255, .35);
+    }
+
+    .planet::before {
+      position: absolute;
+      right: -8%;
+      bottom: 8%;
+      left: -8%;
+      height: 32%;
+      border: 1px solid rgba(255, 210, 248, .65);
+      border-radius: 50%;
+      background: linear-gradient(90deg, rgba(103, 232, 249, .75), rgba(196, 181, 253, .82), rgba(244, 114, 182, .65));
+      box-shadow: 0 0 18px rgba(200, 150, 255, .65);
+      content: "";
+      transform: rotate(-13deg);
+    }
+
+    .planet::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, transparent 45%, rgba(6, 8, 28, .7) 100%);
+      content: "";
+    }
+
+    .spark {
+      position: absolute;
+      z-index: 1;
+      color: #fff;
+      text-shadow: 0 0 16px currentColor;
+      animation: twinkle 2.2s ease-in-out infinite alternate;
+    }
+
+    .spark-one { top: 21%; right: 20%; color: var(--cyan); font-size: 25px; }
+    .spark-two { top: 55%; right: 5%; color: #ffb6db; font-size: 17px; animation-delay: .5s; }
+    .spark-three { bottom: 18%; left: 15%; color: #c4b5fd; font-size: 20px; animation-delay: 1s; }
+
+    .float-card {
+      position: absolute;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 13px;
+      background: rgba(19, 18, 41, .78);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .24);
+      backdrop-filter: blur(12px);
+      color: #dedcf0;
+      font-size: 12px;
+    }
+
+    .float-card strong {
+      display: block;
+      margin-bottom: 2px;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .float-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(103, 232, 249, .12);
+      font-size: 17px;
+    }
+
+    .card-one { top: 25%; right: 0; }
+    .card-two { bottom: 23%; left: 1%; }
+
+    .section {
+      padding: 78px 8% 88px;
+    }
+
+    .section-heading {
+      max-width: 620px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-heading .eyebrow {
+      margin-bottom: 13px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -.05em;
+    }
+
+    .section-heading p {
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .cards {
+      display: grid;
+      max-width: 1120px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      padding: 27px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(145deg, rgba(27, 26, 49, .96), rgba(16, 16, 31, .96));
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .card::after {
+      position: absolute;
+      top: -70px;
+      right: -75px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--glow, rgba(167, 139, 250, .1));
+      content: "";
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(196, 181, 253, .42);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+    }
+
+    .card-explore { --glow: rgba(103, 232, 249, .14); }
+    .card-challenge { --glow: rgba(244, 114, 182, .13); }
+    .card-achieve { --glow: rgba(251, 191, 36, .12); }
+
+    .card-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 22px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .055);
+      font-size: 23px;
+    }
+
+    .card h3 {
+      margin-bottom: 9px;
+      font-size: 18px;
+      letter-spacing: -.3px;
+    }
+
+    .card p {
+      max-width: 290px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 18px;
+      color: #d2c5ff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card-link span {
+      transition: transform .2s ease;
+    }
+
+    .card-link:hover span {
+      transform: translateX(4px);
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 25px 8%;
+      border-top: 1px solid var(--line);
+      color: #8f8ea7;
+      font-size: 12px;
+    }
+
+    .footer-note {
+      color: #aaa9c2;
+    }
+
+    @keyframes drift {
+      0%, 100% { margin-top: 0; }
+      50% { margin-top: -13px; }
+    }
+
+    @keyframes twinkle {
+      from { opacity: .45; transform: scale(.8); }
+      to { opacity: 1; transform: scale(1.12); }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 660px;
+        padding-top: 145px;
+      }
+
+      .hero-art {
+        right: -9%;
+        width: 51vw;
+        opacity: .62;
+      }
+
+      .hero-content {
+        max-width: 570px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header {
+        padding: 19px 6%;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .brand-mark {
+        width: 33px;
+        height: 33px;
+      }
+
+      .nav-links {
+        gap: 17px;
+        font-size: 13px;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hero {
+        min-height: 720px;
+        align-items: start;
+        padding: 150px 7% 260px;
+      }
+
+      .hero-art {
+        top: auto;
+        right: -3%;
+        bottom: -5%;
+        width: min(83vw, 390px);
+        opacity: .8;
+        transform: none;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      h1 {
+        font-size: clamp(49px, 13vw, 70px);
+      }
+
+      .section {
+        padding: 65px 7% 70px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .card:last-child {
+        min-height: 0;
+        grid-column: auto;
+      }
+
+      footer {
+        flex-direction: column;
+        padding: 22px 7%;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-header" aria-label="Main navigation">
+    <a class="brand" href="#home" aria-label="PixelZone home">
+      <span class="brand-mark" aria-hidden="true">🎮</span>
+      <span class="brand-name">Pixel<span>Zone</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#explore">Explore</a>
+      <a class="nav-cta" href="#explore">Start exploring <span aria-hidden="true">↗</span></a>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <div class="eyebrow">Your next great escape</div>
+      <h1>Enter Another <span>World.</span></h1>
+      <p class="hero-copy">Discover new adventures, explore digital worlds, and unleash your imagination. Your next journey starts right here.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#explore">Explore now <span aria-hidden="true">→</span></a>
+        <a class="button button-secondary" href="#about">Learn more <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="orbit"></div>
+      <div class="orbit orbit-two"></div>
+      <div class="planet"></div>
+      <span class="spark spark-one">✦</span>
+      <span class="spark spark-two">✧</span>
+      <span class="spark spark-three">✦</span>
+      <div class="float-card card-one">
+        <span class="float-icon">🌌</span>
+        <span><strong>New worlds await</strong>There's always more to discover</span>
+      </div>
+      <div class="float-card card-two">
+        <span class="float-icon">✨</span>
+        <span><strong>Your story starts here</strong>Pick a path. Make it yours.</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="explore" aria-labelledby="explore-title">
+      <div class="section-heading" id="about">
+        <div class="eyebrow">Make it your adventure</div>
+        <h2 id="explore-title">Choose Your Adventure</h2>
+        <p>Every great journey starts with a single step. Where will yours take you?</p>
+      </div>
+
+      <div class="cards">
+        <article class="card card-explore">
+          <div class="card-icon" aria-hidden="true">🚀</div>
+          <h3>Explore</h3>
+          <p>Discover new places, unexpected stories, and exciting possibilities.</p>
+          <a class="card-link" href="#home">Find your next world <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="card card-challenge">
+          <div class="card-icon" aria-hidden="true">🎯</div>
+          <h3>Challenge</h3>
+          <p>Test your creativity, take on new quests, and reach your next milestone.</p>
+          <a class="card-link" href="#home">Take on a challenge <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="card card-achieve">
+          <div class="card-icon" aria-hidden="true">🏆</div>
+          <h3>Achieve</h3>
+          <p>Turn your biggest ideas into something extraordinary, one level at a time.</p>
+          <a class="card-link" href="#home">Make it happen <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 PixelZone. Built for explorers <span aria-hidden="true">✦</span></p>
+    <p class="footer-note">Ready when you are.</p>
+  </footer>
+</body>
+</html>
